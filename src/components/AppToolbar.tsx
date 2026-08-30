@@ -1,4 +1,25 @@
+import { useEffect, useState } from "react";
+
 export function AppToolbar() {
+  const [installEvt, setInstallEvt] = useState<any>(null);
+
+  useEffect(() => {
+    const onBIP = (e: Event) => {
+      e.preventDefault();
+      setInstallEvt(e);
+    };
+    window.addEventListener("beforeinstallprompt", onBIP);
+    return () => window.removeEventListener("beforeinstallprompt", onBIP);
+  }, []);
+
+  const handleInstall = async () => {
+    if (installEvt) {
+      installEvt.prompt();
+      await installEvt.userChoice;
+      setInstallEvt(null);
+    }
+  };
+
   const handleShare = async () => {
     try {
       if (navigator.share) {
@@ -7,20 +28,7 @@ export function AppToolbar() {
         await navigator.clipboard.writeText(window.location.href);
         alert("Link copied!");
       }
-    } catch (e) {
-      // user cancelled
-    }
-  };
-
-  const handleInstall = async () => {
-    const evt = (window as any).deferredPrompt;
-    if (evt) {
-      evt.prompt();
-      await evt.userChoice;
-      (window as any).deferredPrompt = null;
-    } else {
-      alert("Use your browser menu to install.");
-    }
+    } catch (e) {}
   };
 
   return (
@@ -39,12 +47,14 @@ export function AppToolbar() {
       >
         Share
       </button>
-      <button
-        onClick={handleInstall}
-        className="px-3 py-2 rounded-md bg-surface-2 text-ink hover:bg-surface"
-      >
-        Install
-      </button>
+      {installEvt && (
+        <button
+          onClick={handleInstall}
+          className="px-3 py-2 rounded-md bg-surface-2 text-ink hover:bg-surface"
+        >
+          Install
+        </button>
+      )}
     </div>
   );
 }
