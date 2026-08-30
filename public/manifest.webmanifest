@@ -1,0 +1,17 @@
+{
+    "name": "Connection Compass",
+    "short_name": "Compass",
+    "start_url": ".",
+    "scope": ".",
+    "display": "standalone",
+    "background_color": "#fdf2f8",
+    "theme_color": "#b91c1c",
+    "description": "Spin the wheel, read the prompt aloud, and answer before the minute runs out.",
+    "icons": [
+      {
+        "src": "/icon.svg",
+        "sizes": "any",
+        "type": "image/svg+xml"
+      }
+    ]
+  }
