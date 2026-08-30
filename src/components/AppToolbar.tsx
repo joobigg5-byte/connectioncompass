@@ -17,6 +17,13 @@ export function AppToolbar() {
       installEvt.prompt();
       await installEvt.userChoice;
       setInstallEvt(null);
+    } else {
+      const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      if (isiOS) {
+        alert("To install on iPhone: Tap the Share icon (square with arrow), then 'Add to Home Screen'.");
+      } else {
+        // Do nothing for browsers that simply don't support it yet
+      }
     }
   };
 
