@@ -47,14 +47,12 @@ export function AppToolbar() {
       >
         Share
       </button>
-      {installEvt && (
-        <button
-          onClick={handleInstall}
-          className="px-3 py-2 rounded-md bg-surface-2 text-ink hover:bg-surface"
-        >
-          Install
-        </button>
-      )}
+      <button
+        onClick={handleInstall}
+        className="px-3 py-2 rounded-md bg-surface-2 text-ink hover:bg-surface"
+      >
+        Install
+      </button>
     </div>
   );
 }
